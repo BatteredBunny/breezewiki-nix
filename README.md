@@ -29,7 +29,7 @@ services.breezewiki = {
     enable = true;
     settings = {
         port = 10416;
-        canonical_origin = "https://breezewiki.example.com"
+        canonical_origin = "https://breezewiki.example.com";
     };
 };
 ```
