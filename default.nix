@@ -63,6 +63,8 @@ stdenv.mkDerivation {
     homepage = "https://gitdab.com/cadence/breezewiki";
     mainProgram = "breezewiki";
     license = licenses.agpl3Only;
-    platforms = platforms.linux;
+    platforms = [
+      "x86_64-linux"
+    ];
   };
 }

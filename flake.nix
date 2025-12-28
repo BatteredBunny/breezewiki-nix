@@ -10,50 +10,27 @@
       ...
     }:
     let
-      inherit (nixpkgs) lib;
-
-      systems = lib.systems.flakeExposed;
-
-      forAllSystems = lib.genAttrs systems;
-
-      nixpkgsFor = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-        }
-      );
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
     in
     {
       overlays.default = final: prev: {
         breezewiki = final.callPackage ./default.nix { };
       };
 
-      packages = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgsFor.${system};
-        in
-        {
-          default = pkgs.callPackage ./default.nix { };
+      packages.x86_64-linux = {
+        default = pkgs.callPackage ./default.nix { };
 
-          # nix run .#test-service.driverInteractive
-          test-service = pkgs.callPackage ./test.nix {
-            inherit self;
-          };
-        }
-      );
+        # nix run .#test-service.driverInteractive
+        test-service = pkgs.callPackage ./test.nix {
+          inherit self;
+        };
+      };
 
-      checks = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgsFor.${system};
-        in
-        {
-          test-service = pkgs.callPackage ./test.nix {
-            inherit self;
-          };
-        }
-      );
+      checks.x86_64-linux = {
+        test-service = pkgs.callPackage ./test.nix {
+          inherit self;
+        };
+      };
 
       nixosModules.default = import ./module.nix;
     };
