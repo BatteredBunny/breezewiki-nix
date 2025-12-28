@@ -1,6 +1,7 @@
 {
+  pkgs,
   stdenv,
-  lib,
+  lib ? pkgs.lib,
   fetchzip,
   makeWrapper,
   autoPatchelfHook,
