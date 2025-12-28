@@ -1,5 +1,7 @@
 # breezewiki-nix
 
+Breezewiki package & module for NixOS
+
 ```bash
 nix run github:BatteredBunny/breezewiki-nix
 ```
